@@ -21,12 +21,12 @@
                 Image
             </dt>
             <dd class="col-sm-10">
-                <img src="@Html.DisplayFor(model => model.Ad.Url)" style="max-width: 400px;" />
+                <img src="@Html.DisplayFor(model => model.Ad.Url)" style="max-width: 401px;" />
             </dd>
         </dl>
 
         <form asp-action="Delete">
-            <input type="hidden" asp-for="@Model.Ad.AdvertisementId" />
+            <input type="hidden" asp-for="@Model.Ad.AdvertisementId" />    
             <input type="hidden" name="broId" value="@Model.Ad.BrokerageId" />
             <input type="submit" value="Delete" class="btn btn-danger" /> |
             <a asp-action="Index" asp-route-id="@Model.Ad.BrokerageId">Back to List</a>
