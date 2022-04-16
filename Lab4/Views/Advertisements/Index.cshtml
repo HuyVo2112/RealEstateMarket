@@ -1,0 +1,45 @@
+﻿@model Assignment2.Models.ViewModels.AdsViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container">
+    <h1>Show ads for brokerage @Model.Brokerage.Title</h1>
+
+    <p>
+        <a asp-action="Create" asp-route-id="@Model.Brokerage.Id">Upload New</a>
+    </p>
+    <p>
+        <a asp-controller="Brokerages">Back to list</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    File Name
+                </th>
+                <th>
+                    Image
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Advertisements)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FileName)
+                    </td>
+                    <td>
+                        <img src="@item.Url" style="max-width: 400px;" />
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@item.AdvertisementId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
