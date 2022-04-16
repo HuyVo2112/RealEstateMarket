@@ -1,0 +1,87 @@
+﻿@model Assignment2.Models.ViewModels.ClientSubscriptionsViewModel
+
+@{
+    ViewData["Title"] = "Edit Subscription";
+}
+
+<style>
+    .custom-button {
+    border: none;
+    background: none;
+    color: #0366d6;
+}
+
+    .custom-button:hover{
+        text-decoration: underline;
+        border: none;
+        border-style: none;
+    }
+</style>
+<div class="container">
+    <h1>Edit</h1>
+
+    <div>
+        <h4>Client</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                Full Name
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Client.FullName
+            </dd>
+        </dl>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <table>
+                <tbody>
+
+                    @{
+                        var subBrokerages = (from brokerage in Model.Subscriptions where brokerage.IsMember == true orderby brokerage.Title select brokerage);
+                        var nonBrokerages = (from brokerage in Model.Subscriptions where brokerage.IsMember == false orderby brokerage.Title select brokerage);
+                    }
+ 
+                    
+                    @foreach (var item in nonBrokerages)
+                    {
+                        <tr>
+                            <td>@item.Title</td>
+                            <td>
+                                <form asp-action="EditSubscriptions" asp-route-id="@Model.Client.Id">
+                                    <input type="hidden" name="registerOrNot" value="1">
+                                    <input type="hidden" name="BrokerageId" value="@item.BrokerageId">
+                                    <button class="custom-button">Register</button>
+                                </form>
+                                
+                            </td>
+                        </tr>
+                    }
+
+                    @foreach (var item in subBrokerages)
+                    {
+                        <tr>
+                            <td>@item.Title</td>
+                            <td>
+                                <form asp-action="EditSubscriptions" asp-route-id="@Model.Client.Id">
+                                    <input type="hidden" name="registerOrNot" value="0">
+                                    <input type="hidden" name="BrokerageId" value="@item.BrokerageId">
+                                    <button class="custom-button">Unregister</button>
+                                </form>
+                                 
+                            </td>
+                        </tr>
+                    }
+                    
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Client.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>>
+
